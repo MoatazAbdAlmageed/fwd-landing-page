@@ -2,8 +2,8 @@
 
 ## Table of Contents
 
+- [About](#About)
 - [Instructions](#instructions)
-- [Instructions](#About)
 
 ## About
 
