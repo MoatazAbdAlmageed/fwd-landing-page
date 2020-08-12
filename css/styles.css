@@ -278,16 +278,16 @@ nav a:hover {
   color: #ffe800;
 }
 
-.btn-15 {
+.navbar__btn {
   overflow: hidden;
 }
-.btn-15 a {
+.navbar__btn a {
   position: relative;
   -webkit-transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   -o-transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-.btn-15 a:after {
+.navbar__btn a:after {
   content: attr(data-menu-name);
   display: block;
   width: 100%;
@@ -301,7 +301,7 @@ nav a:hover {
   -o-transform: translateY(-100%);
   transform: translateY(-100%);
 }
-.btn-15 a:hover {
+.navbar__btn a:hover {
   -webkit-transform: translateY(100%);
   -ms-transform: translateY(100%);
   -o-transform: translateY(100%);
