@@ -75,17 +75,35 @@ const navbar__list = document.getElementById("navbar__list");
 const fragment = document.createDocumentFragment();
 const navFragment = document.createDocumentFragment();
 const scrollButton = document.querySelector("#scroll");
+let intervalId = 0;
+
 /**
  * End Global Variables
  * Start Helper Functions
  *
  */
 
-function isInView(el) {
-  let box = el.getBoundingClientRect();
-  return box.top < window.innerHeight && box.bottom >= 0;
+function scrollStep() {
+  if (window.pageYOffset === 0) {
+    clearInterval(intervalId);
+  }
+  window.scroll(0, window.pageYOffset - 40);
 }
 
+function scrollToTop() {
+  intervalId = setInterval(scrollStep, 10);
+}
+
+function isInView(el) {
+  let elementBox = el.getBoundingClientRect();
+  return elementBox.top < window.innerHeight && elementBox.bottom >= 0;
+}
+
+function removeActive(elements) {
+  for (let element of elements) {
+    element.classList.remove("active");
+  }
+}
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -93,6 +111,8 @@ function isInView(el) {
  */
 document.title = projectName;
 document.getElementById("projectName").innerText = projectName;
+
+// generate sections
 sections.forEach((section, index) => {
   const { title, description, img } = section;
   const sectionEl = document.createElement("section");
@@ -141,31 +161,21 @@ navbar__list.appendChild(navFragment);
 const menuItems = navbar__list.getElementsByTagName("a");
 for (let item of menuItems) {
   item.addEventListener("click", (e) => {
-    // remove active from other items
-    for (let item of menuItems) {
-      item.classList.remove("active");
-    }
-
-    // add active to current item
-    e.preventDefault();
-    item.classList.add("active");
-
-    // navigate to section
-    document
-      .querySelector(item.getAttribute("href"))
-      .scrollIntoView({ behavior: "smooth" });
-
     // remove active class from other sections
     const sectionsItems = main.getElementsByTagName("section");
-    for (let section of sectionsItems) {
-      section.classList.remove("active");
-    }
-    // add active to current section
+
+    // add active class to current section
+    removeActive(sectionsItems);
     document
       .getElementById(
         item.getAttribute("data-menu-name").replace(/\s/g, "").toLowerCase()
       )
       .classList.add("active");
+
+    // navigate to section
+    document
+      .querySelector(item.getAttribute("href"))
+      .scrollIntoView({ behavior: "smooth" });
   });
 }
 
@@ -180,10 +190,7 @@ document.addEventListener("scroll", (e) => {
     page__header.classList.remove("hidden");
   }
 
-  // menu
-  for (let item of menuItems) {
-    item.classList.remove("active");
-  }
+  removeActive(menuItems);
 
   for (let section of sectionsItems) {
     // section
@@ -202,36 +209,12 @@ document.addEventListener("scroll", (e) => {
   }
 });
 
-// Scroll to anchor ID using scrollTO event
-
 /**
  * End Main Functions
  * Begin Events
  *
  */
 
-// Build menu
-
-// Scroll to section on link click
-
-// Set sections as active
-
 /** Scroll to top button **/
 
-let intervalId = 0; // Needed to cancel the scrolling when we're at the top of the page
-
-function scrollStep() {
-  // Check if we're at the top already. If so, stop scrolling by clearing the interval
-  if (window.pageYOffset === 0) {
-    clearInterval(intervalId);
-  }
-  window.scroll(0, window.pageYOffset - 50);
-}
-
-function scrollToTop() {
-  // Call the function scrollStep() every 16.66 millisecons
-  intervalId = setInterval(scrollStep, 16.66);
-}
-
-// When the DOM is loaded, this click handler is added to our scroll button
 scrollButton.addEventListener("click", scrollToTop);
