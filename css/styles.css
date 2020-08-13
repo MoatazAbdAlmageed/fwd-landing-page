@@ -23,6 +23,11 @@ h1 {
   margin: 2em 1rem;
 }
 
+@media only screen and (max-width: 400px) {
+  .navbar__btn a:after {
+    display: none !important;
+  }
+}
 @media only screen and (min-width: 35em) {
   h1 {
     font-size: 7em;
@@ -53,6 +58,7 @@ main img {
   top: 30%;
   right: 15%;
   width: 300px;
+  display: none;
 }
 
 .main-hero {
@@ -120,8 +126,12 @@ section {
 }
 
 @media only screen and (min-width: 35em) {
+  main img {
+    display: block;
+    width: 30%;
+  }
   .landing__container {
-    max-width: 50em;
+    max-width: 41%;
     padding: 4em;
   }
 }
@@ -267,7 +277,7 @@ nav {
 nav a {
   position: relative;
   display: inline-block;
-  padding: 0 30px;
+  padding: 0 20px;
   color: #fff;
   font-size: 14px;
   letter-spacing: -0.5px;

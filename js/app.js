@@ -142,6 +142,7 @@ sections.forEach((section, index) => {
   fragment.appendChild(sectionEl);
 
   // Build menu
+  const li = document.createElement("li");
   const anchor = document.createElement("a");
   anchor.innerText = title;
   anchor.setAttribute("href", `#${title.replace(/\s/g, "").toLowerCase()}`);
@@ -152,7 +153,8 @@ sections.forEach((section, index) => {
     sectionEl.classList.add("active");
     anchor.classList.add("active");
   }
-  navFragment.appendChild(anchor);
+  li.appendChild(anchor);
+  navFragment.appendChild(li);
 });
 
 main.appendChild(fragment);
